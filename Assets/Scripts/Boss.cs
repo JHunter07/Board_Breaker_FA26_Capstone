@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
@@ -24,8 +25,14 @@ public class Boss : MonoBehaviour
     [Space(15)]
     [Header("Hit Detection")]
     [Tooltip("Add Boss attack collider")]
-    [SerializeField] GameObject hitBox; // Private but available in the inspector
+    [SerializeField] GameObject bossMelee; // Private but available in the inspector
     public int health = 100;
+    float time;
+
+    public float attackCooldown = 3f;
+    bool hasAttacked;
+
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -60,37 +67,69 @@ public class Boss : MonoBehaviour
         // Debug.Log(rb.linearVelocity.y);
         if (canAttack)
         {
+            Debug.Log("WHERE AM I");
             // canAttack = Time.time > 1;
-            if (!hitBox.activeInHierarchy) hitBox.SetActive(true);
+            if (!bossMelee.activeInHierarchy) bossMelee.SetActive(true);
 
 
             // Upon attacking, destroy nearbyEnemy if there is currently a reference to it 
             if (nearbyPlayer != null)
             {
+                Debug.Log("YERR");
                 // Create timer to wait for attack
-                canAttack = Time.time > 1;
-                if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
+                // canAttack = Time.time > 1;
+                if (nearbyPlayer)
                 {
-                    nearbyPlayer.GetComponent<PlayerScript>().TakeDamage(10);
+                    if (bossMelee.activeInHierarchy && !hasAttacked)
+                    {
+                        hasAttacked = true;
+
+
+                    }
+                    else if (hasAttacked)
+                    {
+                        if (attackCooldown > 0f)
+                        {
+                            attackCooldown -= Time.deltaTime;
+                        }
+                        else
+                        {
+                            hasAttacked = false;
+                            attackCooldown = 3f;
+                        }
+                        if (attackCooldown < 0)
+                        {
+                            ResetAttack();
+                            Debug.Log("AGAIN!!!");
+                        }
+                    }
+
+
+
+
+                    if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
+                    {
+                        //nearbyPlayer.GetComponent<PlayerScript>().TakeDamage(10);
+                    }
+                    else
+                    {
+                        //Destroy(nearbyPlayer);
+                    }
+                    /// WTFFFFFFF
+
+
+                    if (!bossMelee.activeInHierarchy) bossMelee.SetActive(false); // Set bossMelee active after timer goes off
+
+                    //
+                    // Destroy(nearbyPlayer);
+                    // TakeDamage(-5); // start with 10 health 
+
                 }
                 else
                 {
-                    //Destroy(nearbyPlayer);
+                    //Destroy (nearbyPlayer);
+                    Debug.Log("I will destroy you!!!");
                 }
-                /// WTFFFFFFF
-
-
-                if (!hitBox.activeInHierarchy) hitBox.SetActive(false); // Set hitbox active after timer goes off
-
-                //
-                // Destroy(nearbyPlayer);
-                // TakeDamage(-5); // start with 10 health 
-
-            }
-            else
-            {
-                //Destroy (nearbyPlayer);
-                Debug.Log("I will destroy you!!!");
             }
         }
         //}
@@ -152,6 +191,11 @@ public class Boss : MonoBehaviour
             canAttack = false; // Prevent attack
             nearbyPlayer = null; // Removes enemy from nearbyEnemy reference when enemy exits collider
         }
+    }
+
+    public void ResetAttack()
+    {
+        time = 0;
     }
 
 }
