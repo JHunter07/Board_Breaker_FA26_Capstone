@@ -1,5 +1,7 @@
 using System.Threading;
 using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class emenyShootin : MonoBehaviour
@@ -18,6 +20,7 @@ public class emenyShootin : MonoBehaviour
     void Start()
     {
         player = PlayerScript.Player.transform.gameObject;
+
         
     }
 
@@ -27,45 +30,66 @@ public class emenyShootin : MonoBehaviour
         timer += Time.deltaTime;
 
         float distance = Vector2.Distance(transform.position, player.transform.position);   
-      // Debug.Log(distance);//check range & fire
-       
-        if((distance > 5) && (patternActiveArc = false))// > far away from boss < Close to boss
+       Debug.Log(distance);//check range & fire
+      
+
+        if(((distance > 5) && (patternActiveShot == false)) || (patternActiveArc == true) )// > far away from boss < Close to boss
         {
+             
+
+            if(timer > 2)
+        {  
+            shootLock();  
+             timer = 0;    
+            resetPattern += 1;
+
+            
+        }   if (distance <= 9)
+            {
+                resetPattern = 2;
+            } 
+         if (resetPattern >= 3)
+            {
+                patternActiveShot = true;
+                patternActiveArc = false;
+                resetPattern = 0;
+
+
+            }
+
+        }else if (((distance> 9) && (patternActiveArc == false)) || (patternActiveShot == true))
+        {
+            
             if(timer > 2)
         {
             timer = 0;
-            shootLock();
-            patternActiveShot= true;
-            resetPattern = +1;
-        } if (resetPattern > 3)
-            {
-                patternActiveShot=false;
-                resetPattern= 0;
-            }
-
-
-        }else if ((distance> 8)&& (patternActiveShot = false))
-        {
-            if(timer > 4)
-        {
-            timer = 0;
            shootArc(); 
-            patternActiveArc = true;
-            resetPattern = +1;
+           resetPattern += 1;
 
-        }  if (resetPattern > 4)
+ 
+        }  if (distance > 11)
             {
-                patternActiveArc=false;
-                resetPattern= 0;
+                resetPattern = 1;
             }
+        if (resetPattern >= 2)
+            {
+                patternActiveArc = true;
+                 patternActiveShot = false;
+                resetPattern = 0;
+               
+            }
+
         }
 
         
     }
     void shootLock()
     {
-        Instantiate(junk,junkPos.position, Quaternion.identity);
-        
+        //cloneing objects
+        Instantiate(junk ,junkPos.position, Quaternion.identity);
+           
+           
+       
         }
          
     void shootArc()

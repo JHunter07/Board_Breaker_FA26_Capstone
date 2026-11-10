@@ -17,15 +17,24 @@ public class projectiletype1 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //lock on script
         rb = GetComponent<Rigidbody2D>();
         player = PlayerScript.Player.transform.gameObject; //GameObject.FindGameObjectWithTag("player");
 
 
         Vector3 direction = player.transform.position -transform.position;
+
         rb.linearVelocity = new Vector2 ( direction.x , direction.y).normalized * force;
+       
+       //test Split
+       
+        // rb.linearVelocity = new Vector2 ( direction.x , direction.y+25).normalized * force;
+        // rb.linearVelocity = new Vector2 ( direction.x , direction.y-25).normalized * force;
 
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
+
         transform.rotation = Quaternion.Euler(0,0,rot + 90);
+
  SetDestoryTime();
 
     }
