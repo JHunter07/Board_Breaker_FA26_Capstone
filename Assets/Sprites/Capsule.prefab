@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8588648842216331972}
   - component: {fileID: 8640210025850121551}
   - component: {fileID: 7214176096045442635}
+  - component: {fileID: 708697312082430577}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -37,7 +38,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5865694246684728683
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,6 +95,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!114 &8588648842216331972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,19 +103,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6704744536080135373}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e23f2ca78c7db14d9e02a6755e5a912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcShot
   whatDestoryBullet:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   Destorytime: 3
   normalBulletSpeed: 15
   pyhsicsBulletSpeed: 17.5
-  pyhsicsBulletGravity: 1
-  force: 10
+  pyhsicsBulletGravity: 3
+  force: 5
+  mass: 0
+  drag: 0
   trash: {fileID: 0}
   trashPos: {fileID: 0}
   bulletType: 1
@@ -131,7 +135,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -151,7 +155,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6704744536080135373}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -181,3 +185,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.2, y: 0.2}
   m_Direction: 0
+--- !u!114 &708697312082430577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6704744536080135373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a318651cef805648b25ef48d8dece95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArcShotV2
+  whatDestoryBullet:
+    serializedVersion: 2
+    m_Bits: 0
+  Destorytime: 5
+  pyhsicsBulletSpeed: 0.5
+  pyhsicsBulletGravity: 1
+  force: 7
+  mass: 0.5
+  drag: 0

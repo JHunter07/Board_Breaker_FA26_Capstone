@@ -14,6 +14,8 @@ public class ArcShot : MonoBehaviour
     [SerializeField] private float pyhsicsBulletGravity = 3f;
     private Rigidbody2D rb;
     public float force;
+    public float mass;
+    public float drag;
    private GameObject player;
    public GameObject trash;
    public Transform trashPos;
@@ -43,8 +45,8 @@ public class ArcShot : MonoBehaviour
 
 
         Vector3 direction = player.transform.position -transform.position;
-        rb.linearVelocity = new Vector2 ( direction.x , direction.y)* force;
-
+        rb.linearVelocity = new Vector2 ( direction.x , direction.y).normalized * force;
+        //rotation of object
         float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,0,rot );
     }
