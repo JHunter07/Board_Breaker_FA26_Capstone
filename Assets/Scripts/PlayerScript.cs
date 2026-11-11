@@ -144,7 +144,7 @@ public class PlayerScript : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
+      //  col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
 
         Debug.Log("-5");
     }

@@ -30,7 +30,7 @@ public class emenyShootin : MonoBehaviour
         timer += Time.deltaTime;
 
         float distance = Vector2.Distance(transform.position, player.transform.position);   
-       Debug.Log(distance);//check range & fire
+       //Debug.Log(distance);//check range & fire
       
 
         if(((distance > 5) && (patternActiveShot == false)) || (patternActiveArc == true) )// > far away from boss < Close to boss

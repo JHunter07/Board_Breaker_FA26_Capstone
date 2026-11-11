@@ -29,7 +29,7 @@ public class Boss : MonoBehaviour
     public int health = 100;
     float time;
 
-    public float attackCooldown = 3f;
+    public float attackCooldown = 10f;
     bool hasAttacked;
 
     
@@ -67,7 +67,7 @@ public class Boss : MonoBehaviour
         // Debug.Log(rb.linearVelocity.y);
         if (canAttack)
         {
-            Debug.Log("WHERE AM I");
+            //Debug.Log("WHERE AM I");
             // canAttack = Time.time > 1;
             if (!bossMelee.activeInHierarchy) bossMelee.SetActive(true);
 
@@ -75,7 +75,7 @@ public class Boss : MonoBehaviour
             // Upon attacking, destroy nearbyEnemy if there is currently a reference to it 
             if (nearbyPlayer != null)
             {
-                Debug.Log("YERR");
+                //Debug.Log("YERR");
                 // Create timer to wait for attack
                 // canAttack = Time.time > 1;
                 if (nearbyPlayer)
@@ -86,35 +86,36 @@ public class Boss : MonoBehaviour
 
 
                     }
-                    else if (hasAttacked)
+                    else if (hasAttacked == true)
                     {
-                        if (attackCooldown > 0f)
+                        if (attackCooldown < 0f)
                         {
                             attackCooldown -= Time.deltaTime;
                         }
-                        else
+                        else if (hasAttacked == false)
                         {
                             hasAttacked = false;
-                            attackCooldown = 3f;
-                        }
-                        if (attackCooldown < 0)
-                        {
+                            attackCooldown = 10f;
                             ResetAttack();
-                            Debug.Log("AGAIN!!!");
                         }
+                      //  if (attackCooldown < 0)
+                     //   {
+                        //    ResetAttack();
+                            //Debug.Log("AGAIN!!!");
+                      //  }
                     }
 
 
 
 
-                    if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
-                    {
+                    //if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
+                    //{
                         //nearbyPlayer.GetComponent<PlayerScript>().TakeDamage(10);
-                    }
-                    else
-                    {
+                   // }
+                  //  else
+                   // {
                         //Destroy(nearbyPlayer);
-                    }
+                   // }
                     /// WTFFFFFFF
 
 
@@ -195,7 +196,7 @@ public class Boss : MonoBehaviour
 
     public void ResetAttack()
     {
-        time = 0;
+        time = 10; //
     }
 
 }
