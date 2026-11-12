@@ -7,57 +7,60 @@ public class BossMelee : MonoBehaviour
     public GameObject nearbyPlayer;
     public bool canAttack;
     bool hasAttacked;
-    public float attackCooldown = 5;
+    public float attackCooldown = 5f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        attackCooldown -= Time.deltaTime;
 
-        if (nearbyPlayer != null)
-            if (canAttack == true)
-            {
+        //if (nearbyPlayer != null)
+        //{
+        //    if (canAttack)
+        //    {
 
-                if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
+        //        if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
 
-                {
+        //        {
 
-                    if (attackCooldown <= 0)
-                    {
+        //            if (attackCooldown > 0)
+        //            {
+        //                attackCooldown -= Time.deltaTime;
 
-                        nearbyPlayer.GetComponent<PlayerScript>().TakeDamage(10);
-                        attackCooldown = 5;
-                    }
-                }
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("HIT");
+        //                nearbyPlayer.GetComponent<PlayerScript>().TakeDamage();
+        //                attackCooldown = 5;
+        //            }
+        //        }
+        //    }
 
-                else
-                {
-                    //   Destroy(nearbyPlayer);
-                }
-            }
-    
-            }
+        //}
+    }
         void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.CompareTag("Player") && !collider.isTrigger)
             {
-                canAttack = true;
-                nearbyPlayer = collider.gameObject;
+                PlayerScript.Player.TakeDamage();
+                gameObject.SetActive(false);
+                //canAttack = true;
+                //nearbyPlayer = collider.gameObject;
             }
         }
 
         void OnTriggerExit2D(Collider2D collider)
         {
-            if (collider.CompareTag("Player") && !collider.isTrigger)
-            {
-                canAttack = false;
-                nearbyPlayer = null;
-            }
+            //if (collider.CompareTag("Player") && !collider.isTrigger)
+            //{
+            //    canAttack = false;
+            //    nearbyPlayer = null;
+            //}
         }
 
         // void OnCollisionEnter(Collision2D coll)
