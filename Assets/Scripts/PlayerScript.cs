@@ -93,26 +93,6 @@ public class PlayerScript : MonoBehaviour
             boardHealth.sprite = boardSprites[healthIndex];
         }
     }
-    //void Update()
-    //{
-
-    //    rb.linearVelocity = moveInput * Speed;
-    //    if (Time.deltaTime > 0)
-    //    {
-    //        playerClock += 1;
-    //    }
-
-    //    if (playerClock > 30f)
-    //    {
-    //        playerClock = 0;
-    //        Speed += 1;
-    //    }
-    //    else if (Speed >= 30)
-    //    {
-    //        Speed = 30f;
-    //    }
-
-    //}
 
 
     public void Move(InputAction.CallbackContext context)
