@@ -10,7 +10,7 @@ public class emenyShootin : MonoBehaviour
    public Transform junkPos;
     public GameObject trash;
    public Transform trashPos;
-   
+   [SerializeField] private AnimationCurve animationCurve;
    private float timer;
    private GameObject player;
    public bool patternActiveShot;
@@ -30,7 +30,7 @@ public class emenyShootin : MonoBehaviour
         timer += Time.deltaTime;
 
         float distance = Vector2.Distance(transform.position, player.transform.position);   
-       Debug.Log(distance);//check range & fire
+       //Debug.Log(distance);//check range & fire
       
 
         if(((distance > 5) && (patternActiveShot == false)) || (patternActiveArc == true) )// > far away from boss < Close to boss
@@ -95,7 +95,8 @@ public class emenyShootin : MonoBehaviour
     void shootArc()
     {
        
-         Instantiate(trash,trashPos.position, Quaternion.identity);
+      //  ArcShotV2 arc = Instantiate(trash,trashPos.position, Quaternion.identity).GetComponent<ArcShotV2>;
+Instantiate(trash,trashPos.position, Quaternion.identity);
     }
     
 }
