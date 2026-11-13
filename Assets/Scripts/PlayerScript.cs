@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using UnityEditor;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -17,7 +17,12 @@ public class PlayerScript : MonoBehaviour
     public bool canAttack; // Allows player to attack nearby enemies
     public GameObject nearbyEnemy; // Empty gameobject that will store nearby enemy upon collision (with trigger collider)
 
-    public int health = 100;
+    public int health = 3;
+
+    public Image boardHealth;
+    public Sprite[] boardSprites;
+    public int healthIndex = 0; // current index in array. ( what ever this equals is going to be the image we display from the sprite array)
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,29 +82,17 @@ public class PlayerScript : MonoBehaviour
             {
                 Speed = 30f;
             }
+            
 
         }
+
+        if (boardHealth.sprite != boardSprites[healthIndex])
+        {
+
+            Debug.Log("yoooo");
+            boardHealth.sprite = boardSprites[healthIndex];
+        }
     }
-    //void Update()
-    //{
-
-    //    rb.linearVelocity = moveInput * Speed;
-    //    if (Time.deltaTime > 0)
-    //    {
-    //        playerClock += 1;
-    //    }
-
-    //    if (playerClock > 30f)
-    //    {
-    //        playerClock = 0;
-    //        Speed += 1;
-    //    }
-    //    else if (Speed >= 30)
-    //    {
-    //        Speed = 30f;
-    //    }
-
-    //}
 
 
     public void Move(InputAction.CallbackContext context)
@@ -135,16 +128,17 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amt)
+    public void TakeDamage()
     {
-        health -= amt;
+        health --;
+        healthIndex ++;
     }
 
 
 
     void OnCollisionEnter(Collision col)
     {
-        col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
+      //  col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
 
         Debug.Log("-5");
     }

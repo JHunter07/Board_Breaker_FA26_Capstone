@@ -14,7 +14,7 @@ public class BossMeleeHitboxVisual : MonoBehaviour
     // Start is called once before the first execution of Update
     void Start()
     {
-        theWeapon = BossMelee.theWeapon.transform.gameObject;
+        //theWeapon = BossMelee.theWeapon.transform.gameObject;
         evilGuy = Boss.Enemy.transform.gameObject;
 
          StartCoroutine(SomeCoroutine());

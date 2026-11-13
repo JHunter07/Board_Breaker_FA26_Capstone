@@ -1,11 +1,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -29,8 +27,12 @@ public class Boss : MonoBehaviour
     public int health = 100;
     float time;
 
-    public float attackCooldown = 5;
-   public bool hasAttacked;
+    public float attackCooldown = 10f;
+    Color color = Color.red;
+    public Image attackIcon;
+    float attackImageAlpha = 0f;
+    float counter = 0f;
+    public bool hasAttacked;
 
     
 
@@ -48,6 +50,7 @@ public class Boss : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         theRB = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
+        attackIcon.color = color;
     }
 
     void FixedUpdate()
@@ -58,7 +61,10 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attackCooldown -= Time.deltaTime;
+        attackIcon.color = color;
+        color.a = attackImageAlpha;
+
+        //attackCooldown -= Time.deltaTime;
 
         float newY = Mathf.Sin(Time.time * floating) * strength;
         Vector3 position = new Vector2(0, newY) + initialPosition;
@@ -66,95 +72,34 @@ public class Boss : MonoBehaviour
         // Vector2 rawMove = moveInput.ReadValue<Vector2>();
         //  move = rawMove;
         // rb.linearVelocity = new Vector2(rb.linearVelocity.x,10f);
-        // Debug.Log(rb.linearVelocity.y);
-       
-        if (canAttack == true)
+        // Debug.Log(rb.linearVelocity.y
+        // 
+        if (canAttack)
         {
-            Debug.Log("WHERE AM I");
-            // canAttack = Time.time > 1;
-            if (!bossMelee.activeInHierarchy) bossMelee.SetActive(true);
-
-
-            // Upon attacking, destroy nearbyEnemy if there is currently a reference to it 
-            if (nearbyPlayer != null)
+            //Debug.Log("WHERE AM I");
+            if(nearbyPlayer != null)
             {
-                Debug.Log("YERR");
-                // Create timer to wait for attack
-                // canAttack = Time.time > 1;
-                if (nearbyPlayer)
-                { 
-                    if (bossMelee.activeInHierarchy && (!hasAttacked == false) && (attackCooldown <= 0))
-                    {
-                        hasAttacked = true;
-
-
-                    }
-                     if (bossMelee.activeInHierarchy &&( hasAttacked== true))
-                    {
-                        if (attackCooldown <= 0)
-                        {
-                            
-                            hasAttacked = false;
-                            attackCooldown = 5;
-                        }
-                        if (attackCooldown <= 0)
-                        {
-                           // ResetAttack();
-                            Debug.Log("AGAIN!!!");
-                        }
-                    }
-
-
-
-
-                    if (nearbyPlayer.GetComponent<PlayerScript>().health > 0)
-                    {
-                        //nearbyPlayer.GetComponent<PlayerScript>().TakeDamage(10);
-                    }
-                    else
-                    {
-                        //Destroy(nearbyPlayer);
-                    }
-                    /// WTFFFFFFF
-
-
-                    if (!bossMelee.activeInHierarchy) bossMelee.SetActive(false); // Set bossMelee active after timer goes off
-
-                    //
-                    // Destroy(nearbyPlayer);
-                    // TakeDamage(-5); // start with 10 health 
-
-                }
-                else
+                if(attackCooldown > 0f)
                 {
-                    //Destroy (nearbyPlayer);
-                    Debug.Log("I will destroy you!!!");
+                    attackCooldown -= Time.deltaTime;
+                }
+                else if (!hasAttacked)
+                {
+                    hasAttacked = true;
+                    StartCoroutine(AttackPlayer());
                 }
             }
         }
-        //}
+  
+
+        if(hasAttacked)
+        {
+            counter++;
+            attackImageAlpha = Mathf.Sin(counter * 0.03f);
+        }
+
 
     }
-    //void Update()
-    //{
-
-    //    rb.linearVelocity = moveInput * Speed;
-    //    if (Time.deltaTime > 0)
-    //    {
-    //        playerClock += 1;
-    //    }
-
-    //    if (playerClock > 30f)
-    //    {
-    //        playerClock = 0;
-    //        Speed += 1;
-    //    }
-    //    else if (Speed >= 30)
-    //    {
-    //        Speed = 30f;
-    //    }
-
-    //}
 
     public void Move(InputAction.CallbackContext context)
 
@@ -186,11 +131,32 @@ public class Boss : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.CompareTag("Player"))
+        if (collider.CompareTag("Player") && collider.isTrigger)
         {
             canAttack = false; // Prevent attack
             nearbyPlayer = null; // Removes enemy from nearbyEnemy reference when enemy exits collider
         }
+    }
+
+    IEnumerator AttackPlayer()//Coroutine
+    {
+        while (true)
+        {
+            Debug.Log("START THE ATTACK");
+            yield return new WaitForSeconds(3);
+            Debug.Log("THREE SECONDS HAVE PASSED");
+            bossMelee.SetActive(true);
+            hasAttacked = false;
+            counter = 0f;
+            attackImageAlpha = 0f;
+            attackCooldown = 3f;
+            Invoke(nameof(TurnOffHitbox), 0.5f);
+        }
+    }
+
+    void TurnOffHitbox()
+    {
+        if (bossMelee.activeInHierarchy) bossMelee.SetActive(false);
     }
 
     public void ResetAttack()
