@@ -66,6 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
-    },
-    "dotnet.defaultSolution": "Board_Breaker_FA26_Capstone.slnx"
+    }
 }

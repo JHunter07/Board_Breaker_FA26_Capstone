@@ -32,7 +32,7 @@ public class Boss : MonoBehaviour
     public Image attackIcon;
     float attackImageAlpha = 0f;
     float counter = 0f;
-    bool hasAttacked;
+    public bool hasAttacked;
 
     
 
@@ -64,6 +64,7 @@ public class Boss : MonoBehaviour
         attackIcon.color = color;
         color.a = attackImageAlpha;
 
+        //attackCooldown -= Time.deltaTime;
 
         float newY = Mathf.Sin(Time.time * floating) * strength;
         Vector3 position = new Vector2(0, newY) + initialPosition;
@@ -110,7 +111,7 @@ public class Boss : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         //collision.gameObject.GetComponent<Rigidbody2D>().simulated=false;
-        Destroy(gameObject);
+     // Destroy(gameObject);
         Speed = 0;
     }
 
@@ -160,7 +161,7 @@ public class Boss : MonoBehaviour
 
     public void ResetAttack()
     {
-        time = 10; //
+        //time = 10;
     }
 
 }
