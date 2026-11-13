@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -19,7 +20,7 @@ public class ArcShotV2 : MonoBehaviour
     private Rigidbody2D rb;
      private GameObject player;
     private GameObject boss;
-  
+  [SerializeField] private AnimationCurve trijectoryanimationCurve;
 
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,7 +40,7 @@ SetDestoryTime();
     
  
         Vector3 direction = player.transform.position   -boss.transform.position;
-        rb.linearVelocity = pyhsicsBulletSpeed / mass * new Vector2 ( direction.x, direction.y) * force ;
+        rb.linearVelocity = new Vector2 ( direction.x, direction.y).normalized  * force;
 
          rb.gravityScale = pyhsicsBulletGravity;
         //rotation of object
@@ -60,5 +61,8 @@ SetDestoryTime();
     
         
     }
-   
+   public void IntainlizeAnimationCurve(AnimationCurve trijectoryAnimationCurve)
+    {
+        //this.trijectoryanimationCurve = trijectoryanimationCurve;
+    }
 }

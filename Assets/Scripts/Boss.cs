@@ -29,8 +29,8 @@ public class Boss : MonoBehaviour
     public int health = 100;
     float time;
 
-    public float attackCooldown = 3f;
-    bool hasAttacked;
+    public float attackCooldown = 5;
+   public bool hasAttacked;
 
     
 
@@ -58,6 +58,8 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        attackCooldown -= Time.deltaTime;
+
         float newY = Mathf.Sin(Time.time * floating) * strength;
         Vector3 position = new Vector2(0, newY) + initialPosition;
         theRB.MovePosition(position);
@@ -65,7 +67,8 @@ public class Boss : MonoBehaviour
         //  move = rawMove;
         // rb.linearVelocity = new Vector2(rb.linearVelocity.x,10f);
         // Debug.Log(rb.linearVelocity.y);
-        if (canAttack)
+       
+        if (canAttack == true)
         {
             Debug.Log("WHERE AM I");
             // canAttack = Time.time > 1;
@@ -79,27 +82,24 @@ public class Boss : MonoBehaviour
                 // Create timer to wait for attack
                 // canAttack = Time.time > 1;
                 if (nearbyPlayer)
-                {
-                    if (bossMelee.activeInHierarchy && !hasAttacked)
+                { 
+                    if (bossMelee.activeInHierarchy && (!hasAttacked == false) && (attackCooldown <= 0))
                     {
                         hasAttacked = true;
 
 
                     }
-                    else if (hasAttacked)
+                     if (bossMelee.activeInHierarchy &&( hasAttacked== true))
                     {
-                        if (attackCooldown > 0f)
+                        if (attackCooldown <= 0)
                         {
-                            attackCooldown -= Time.deltaTime;
-                        }
-                        else
-                        {
+                            
                             hasAttacked = false;
-                            attackCooldown = 3f;
+                            attackCooldown = 5;
                         }
-                        if (attackCooldown < 0)
+                        if (attackCooldown <= 0)
                         {
-                            ResetAttack();
+                           // ResetAttack();
                             Debug.Log("AGAIN!!!");
                         }
                     }
@@ -166,7 +166,7 @@ public class Boss : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         //collision.gameObject.GetComponent<Rigidbody2D>().simulated=false;
-        Destroy(gameObject);
+     // Destroy(gameObject);
         Speed = 0;
     }
 
@@ -195,7 +195,7 @@ public class Boss : MonoBehaviour
 
     public void ResetAttack()
     {
-        time = 0;
+        //time = 10;
     }
 
 }
