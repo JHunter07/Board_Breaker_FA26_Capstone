@@ -137,17 +137,20 @@ public class Boss : MonoBehaviour
         }
     }
 
-    IEnumerator AttackPlayer()
+    IEnumerator AttackPlayer()//Coroutine
     {
-        Debug.Log("START THE ATTACK");
-        yield return new WaitForSeconds(3);
-        Debug.Log("THREE SECONDS HAVE PASSED");
-        bossMelee.SetActive(true);
-        hasAttacked = false;
-        counter = 0f;
-        attackImageAlpha = 0f;
-        attackCooldown = 3f;
-        Invoke(nameof(TurnOffHitbox), 0.5f);
+        while (true)
+        {
+            Debug.Log("START THE ATTACK");
+            yield return new WaitForSeconds(3);
+            Debug.Log("THREE SECONDS HAVE PASSED");
+            bossMelee.SetActive(true);
+            hasAttacked = false;
+            counter = 0f;
+            attackImageAlpha = 0f;
+            attackCooldown = 3f;
+            Invoke(nameof(TurnOffHitbox), 0.5f);
+        }
     }
 
     void TurnOffHitbox()
