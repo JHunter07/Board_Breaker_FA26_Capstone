@@ -1,5 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+//using System.Drawing;
+using System.Net.NetworkInformation;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -11,9 +15,17 @@ public class BossMeleeHitboxVisual : MonoBehaviour
     public GameObject evilGuy;
     public GameObject DangerZone;
     public Renderer box;
+    //  Color color = Color.Red;
+     
+    // float attackImageAlpha = 0f;
+     
     // Start is called once before the first execution of Update
     void Start()
     {
+       //  DangerZone.sprite = color.red;
+        // color.A = attackImageAlpha;
+        // attackImageAlpha  = 0;
+
         //theWeapon = BossMelee.theWeapon.transform.gameObject;
         evilGuy = Boss.Enemy.transform.gameObject;
 
@@ -24,6 +36,7 @@ public class BossMeleeHitboxVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // DangerZone.color = color;
        //StartCoroutine(SomeCoroutine());
     }
      private IEnumerator StartingCororutine()
@@ -31,12 +44,12 @@ public class BossMeleeHitboxVisual : MonoBehaviour
         
         
             
-       
+          
          yield return  StartCoroutine(SomeCoroutine());//waits for other to go before it go
         
          yield return new WaitForSecondsRealtime(4f);
          yield return gameObject.GetComponent<Renderer>().enabled = false;
-        
+       
         Debug.Log("looping");
          
     }
@@ -48,14 +61,18 @@ public class BossMeleeHitboxVisual : MonoBehaviour
         // Swinged= false;
         
         // Debug.Log ("not working");
-        yield return new WaitForSecondsRealtime(1f);
+        // attackImageAlpha =+ 0.10;
+        yield return new WaitForSecondsRealtime(0.5f);
         yield return gameObject.GetComponent<Renderer>().enabled = true;
+         yield return new WaitForSecondsRealtime(0.5f);
+         yield return gameObject.GetComponent<Renderer>().enabled = false;
+        //   attackImageAlpha = 0;
         //  StartCoroutine(StartingCororutine());
 
        // gameObject DangerZone;
         // Swinged = true;
 
-        Debug.Log ("working");
+       // Debug.Log ("working");
         //Sthm sthm new Stuff
        
 }
