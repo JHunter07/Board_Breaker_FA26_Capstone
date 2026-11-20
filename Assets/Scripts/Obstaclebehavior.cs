@@ -43,7 +43,8 @@ public class Obstaclebehavior : MonoBehaviour
             Debug.Log("IS THIS WORKING");
             col.gameObject.GetComponent<PlayerScript>().TakeDamage();
 
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            transform.position = new Vector3(PlayerScript.Player.transform.position.x + 12, transform.position.y, transform.position.z);
         }
         
         
