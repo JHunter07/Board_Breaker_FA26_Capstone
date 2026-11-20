@@ -15,6 +15,16 @@ public class Obstaclebehavior : MonoBehaviour
     }
     void onCollisionEnter2d(Collision2D collision)
     {
-        Destroy(gameObject);
+        if (col.transform.CompareTag("Player"))
+        {
+            Debug.Log("IS THIS WORKING");
+            col.gameObject.GetComponent<PlayerScript>().TakeDamage();
+
+          //  Destroy(gameObject);
+          transform.position = new Vector3(PlayerScript.Player.transform.position.x + 12, transform.position.y, transform.position.z);
+        }
+        
+        
+        
     }
 }
