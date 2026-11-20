@@ -28,11 +28,13 @@ public class Boss : MonoBehaviour
     float time;
 
     public float attackCooldown = 10f;
-    Color color = Color.red;
+   public  Color color = Color.red;
     public Image attackIcon;
     float attackImageAlpha = 0f;
     float counter = 0f;
     public bool hasAttacked;
+    float pingPong = 0f;
+    Color lerpedColor = Color.black;
 
     
 
@@ -61,6 +63,11 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //pingPong += 0.2f;
+        //lerpedColor = Color.Lerp(Color.black, Color.white, Mathf.PingPong(pingPong, 1));
+        //GetComponent<SpriteRenderer>().color = lerpedColor;
+
+
         attackIcon.color = color;
         color.a = attackImageAlpha;
 
@@ -111,7 +118,7 @@ public class Boss : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         //collision.gameObject.GetComponent<Rigidbody2D>().simulated=false;
-     // Destroy(gameObject);
+        //Destroy(gameObject);
         Speed = 0;
     }
 
@@ -150,8 +157,10 @@ public class Boss : MonoBehaviour
             counter = 0f;
             attackImageAlpha = 0f;
             attackCooldown = 3f;
-            Invoke(nameof(TurnOffHitbox), 0.5f);
+            //Invoke(nameof(TurnOffHitbox), 0.5f);
         }
+
+
     }
 
     void TurnOffHitbox()
@@ -159,9 +168,31 @@ public class Boss : MonoBehaviour
         if (bossMelee.activeInHierarchy) bossMelee.SetActive(false);
     }
 
-    public void ResetAttack()
-    {
+    //void DamageTaken()
+    //{
+    //    IEnumerator BossAttack()
+    //    {
+    //        float elapsedTime = 0f; // Starting time
+    //        float duration = 5f; // Time until coroutine finishes
+
+    //        while (duration > elapsedTime) // Loop until elapsedTime reaches duration
+    //        {
+    //            //lerpColor of boss
+
+    //            elapsedTime += Time.deltaTime; // Increase elapsedTime by the second 
+    //            Debug.Log("Time elapsed: " + elapsedTime);
+    //            yield return null; // Yields coroutine until the next frame
+    //        }
+    //        //***THE FOLLOWING CODE WILL NOT RUN UNTIL AFTER THE WHILE LOOP HAS FINISHED***///
+
+    //        //reset boss color (black)
+    //        Debug.Log("SHOOT");
+      //  }
+    
+    
+  //  public void ResetAttack()
+//{
         //time = 10;
-    }
+   // }
 
 }

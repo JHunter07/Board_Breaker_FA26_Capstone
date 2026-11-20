@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     public Sprite[] boardSprites;
     public int healthIndex = 0; // current index in array. ( what ever this equals is going to be the image we display from the sprite array)
 
-
+    public float jumpAmount;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -47,9 +49,25 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+       {
+            rb.AddForce(Vector2.up * jumpAmount, ForceMode2D.Impulse);
+            Debug.Log("im jumping!!!");
+        
+       }
+
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ResetTheGame();
+        }
         Vector2 rawMove = moveInput.ReadValue<Vector2>();
         move = rawMove;
-        if (Input.GetKeyDown(KeyCode.Space) && canAttack)
+
+        if (Input.GetKeyDown(KeyCode.E) && canAttack)
         {
             // Upon attacking, destroy nearbyEnemy if there is currently a reference to it 
             if (nearbyEnemy != null)
@@ -82,7 +100,7 @@ public class PlayerScript : MonoBehaviour
             {
                 Speed = 30f;
             }
-            
+
 
         }
 
@@ -106,7 +124,7 @@ public class PlayerScript : MonoBehaviour
     {
         //collision.gameObject.GetComponent<Rigidbody2D>().simulated=false;
         //Destroy(gameObject);
-       // Speed = 0;
+        // Speed = 0;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -126,26 +144,34 @@ public class PlayerScript : MonoBehaviour
             canAttack = false; // Prevent attack
             nearbyEnemy = null; // Removes enemy from nearbyEnemy reference when enemy exits collider
         }
+
+
     }
 
     public void TakeDamage()
     {
-        health --;
-        healthIndex ++;
+        health--;
+        healthIndex++;
     }
 
 
 
     void OnCollisionEnter(Collision col)
     {
-      //  col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
+        //  col.gameObject.GetComponent<PlayerScript>().TakeDamage(5);
 
         Debug.Log("-5");
     }
 
+ 
 
 
 
+
+    private void ResetTheGame()
+{
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+}
 
 
 }

@@ -50,12 +50,14 @@ public class BossMeleeHitboxVisual : MonoBehaviour
         // Debug.Log ("not working");
         yield return new WaitForSecondsRealtime(1f);
         yield return gameObject.GetComponent<Renderer>().enabled = true;
-        //  StartCoroutine(StartingCororutine());
+            yield return new WaitForSecondsRealtime(1f);
+            yield return gameObject.GetComponent<Renderer>().enabled = false;
+            //  StartCoroutine(StartingCororutine());
 
-       // gameObject DangerZone;
-        // Swinged = true;
+            // gameObject DangerZone;
+            // Swinged = true;
 
-        Debug.Log ("working");
+            Debug.Log ("working");
         //Sthm sthm new Stuff
        
 }
