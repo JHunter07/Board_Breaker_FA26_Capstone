@@ -69,8 +69,8 @@ public class BossMeleeHitboxVisual : MonoBehaviour
         //   attackImageAlpha = 0;
         //  StartCoroutine(StartingCororutine());
 
-       // gameObject DangerZone;
-        // Swinged = true;
+            // gameObject DangerZone;
+            // Swinged = true;
 
        // Debug.Log ("working");
         //Sthm sthm new Stuff
