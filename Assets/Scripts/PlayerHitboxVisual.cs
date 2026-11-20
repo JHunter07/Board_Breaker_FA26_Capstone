@@ -33,7 +33,7 @@ public class PlayerHitboxVisual : MonoBehaviour
         // attackImageAlpha =+ 0.10;
 
        
-       if (Input.GetKeyDown(KeyCode.Space) && PlayerScript.Player.canAttack){
+       if (Input.GetKeyDown(KeyCode.E) && PlayerScript.Player.canAttack){
         
        
         yield return gameObject.GetComponent<Renderer>().enabled = true;

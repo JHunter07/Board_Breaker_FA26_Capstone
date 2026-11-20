@@ -56,4 +56,14 @@ public class projectiletype1 : MonoBehaviour
     {
          Destroy(gameObject,Destorytime);
     }
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.transform.CompareTag("Player"))
+        {
+            Debug.Log("IS THIS WORKING");
+            col.gameObject.GetComponent<PlayerScript>().TakeDamage();
+
+            Destroy(gameObject);
+        }
+}
 }
