@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -23,6 +24,7 @@ public class Obstaclebehavior : MonoBehaviour
         // rb = GetComponent<Rigidbody2D>();
         rb.linearVelocityX = -1;
 
+
         //PlayerMovement.Player.transform.position;
 
         if (PlayerScript.Player == null) return;
@@ -33,9 +35,19 @@ public class Obstaclebehavior : MonoBehaviour
             Debug.Log("here");
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+
+    void OnCollisionEnter2D(Collision2D col)
     {
-        Destroy(gameObject);
+        if (col.transform.CompareTag("Player"))
+        {
+            Debug.Log("IS THIS WORKING");
+            col.gameObject.GetComponent<PlayerScript>().TakeDamage();
+
+            Destroy(gameObject);
+        }
+        
+        
+        
     }
-    // why no work what
+
 }

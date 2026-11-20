@@ -49,6 +49,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      //  Debug.Log(rb.linearVelocity);
         if (Input.GetKeyDown(KeyCode.Space))
        {
             rb.AddForce(Vector2.up * jumpAmount, ForceMode2D.Impulse);
@@ -109,6 +110,9 @@ public class PlayerScript : MonoBehaviour
 
             Debug.Log("yoooo");
             boardHealth.sprite = boardSprites[healthIndex];
+        }
+        if (health == 0) {
+            ResetTheGame();
         }
     }
 
