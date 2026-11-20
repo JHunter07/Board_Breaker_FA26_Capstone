@@ -15,7 +15,7 @@ public class BossMelee : MonoBehaviour
     }
     void Start()
     {
-      
+        Debug.Log("DO I WORK");
     }
 
     // Update is called once per frame
@@ -27,6 +27,7 @@ public class BossMelee : MonoBehaviour
     {
         if (collider.CompareTag("Player") && !collider.isTrigger)
         {
+            Debug.Log(collider.gameObject.name);
             PlayerScript.Player.TakeDamage();
             gameObject.SetActive(false);
             //canAttack = true;
